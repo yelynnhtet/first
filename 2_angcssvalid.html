@@ -1,0 +1,36 @@
+<!Doctype html>
+<html>
+<head>
+	<script src="js/googleAPI.angular.min.js"></script>
+	<style>
+		input.ng-pristine{
+			background-color: yellow;
+		}
+
+		input.ng-touched.ng-invalid{
+			background-color: red;
+		}
+
+		input.ng-touched.ng-valid{
+			background-color: green;
+		}
+	</style>
+</head>
+
+<body ng-app>
+	<form name="studentForm" novalidate class="student-form">
+		<label for="firstName">First Name</label><br>
+		<input type="text" name="firstName" ng-model="firstName" ng-required="true">
+		<span ng-show="studentForm.firstName.$touched && studentForm.firstName.$error.required">First name is required.</span><br><br>
+		<label for="lastName">Last Name</label><br>
+		<input type="text" name="lastName" ng-minlength="3" ng-maxlengtj="10" ng-model="lastName">
+		<span ng-show="studentForm.lastName.$touched && studentForm.lastName.$error.minlength">Min 3 chars.</span>
+		<span ng-show="studentForm.lastName.$touched && studentForm.lastName.$error.maxlength">Max 10 chars.</span><br><br>
+		<label for="dob">Email</label><br>
+		<input type="email" id="email" ng-model="email" name="email">
+		<span ng-show="studentForm.email.$touched && studentForm.email.$error.email">Please enter valid email id.</span><br><br>
+		<input type="submit" value="Save">
+	</form>
+</body>
+</html>
+

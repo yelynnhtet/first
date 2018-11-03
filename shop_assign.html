@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/ylh.css">
+	<script src="js/googleAPI.angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myController" ng-init="count=0;">
+		<div class="header">
+			<h2 class="left">Void Online Shop<h2>
+		</div>
+		<div class="search">
+			<input type="text" placeholder="Search" ng-model="searchCriteria">
+			<select  ng-model="searchFilter">
+				<option value="title">Title</option>
+				<option value="price">Price</option>
+			</select>
+
+		<p class="show_count">Items:{{count}}</p>
+	
+		<div class="body">
+
+			<div class="item_container"  ng-repeat="i in items|filter:queryFilter |orderBy:searchFilter">
+				<div class="item_name">
+					'{{i.title}}'
+				</div>
+				<div class="item_img">
+					<img src="img/{{i.images }}">
+				</div>
+				<div class="item_price">
+					<div class="item_price_detail">
+						Price:
+					</div>
+					<div class="item_price_detail">
+						{{i.price| currency:'MMK':0}}
+					</div>
+				</div>
+				<div class="submit_btn_div">
+					<button class="submit_btn" ng-click="addToCard()">Add To Card</button>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	</div>
+	<script>
+		var myApp = angular.module('myApp',[]);
+		myApp.controller("myController",function($scope){
+			$scope.items = [{title:'Item 1',images:'1.png',price:10000},
+							{title:'Item 2',images:'2.jpg',price:40000},
+							{title:'Item 3',images:'3.jpg',price:30000},
+							{title:'Item 4',images:'1.png',price:20000},
+							{title:'Item 5',images:'2.jpg',price:50000},
+							{title:'Item 6',images:'3.jpg',price:60000},
+							{title:'Item 7',images:'1.png',price:70000},
+							{title:'Item 8',images:'2.jpg',price:80000},
+							{title:'Item 9',images:'3.jpg',price:90000},
+							{title:'Item 10',images:'1.png',price:110000},
+							{title:'Item 11',images:'2.jpg',price:120000}];
+			$scope.addToCard = function(){
+				$scope.count= $scope.count+1;
+			}
+
+			Object.defineProperty($scope, "queryFilter", {
+				get: function() {
+					var out={};
+					out[$scope.searchFilter || "$"] = $scope.searchCriteria;
+					return out;
+				}
+			});
+
+			
+		});
+	</script>
+</body>
+</html>
